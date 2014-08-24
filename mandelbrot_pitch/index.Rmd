@@ -1,0 +1,96 @@
+---
+title       : The Mandelbrot Set
+subtitle    : Math is Beautiful
+author      : kbelsvik
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## The Problem with Math...
+
+- Far to many people preceive math as being an unappealing subject
+- There are a variety of reasons for this preception
+    - They find it boring or monotonous
+    - Lacks emotional appeal
+    - Difficult to understand
+- Observe this equasion below
+
+$$f(Z_{n+1}) = Z_{n}^2 + C$$
+
+- Nothing exciting here, right? But...
+
+---
+
+## ...doesn't have to be a problem
+
+What if I told you that boring old equasion is used to draw something like this?
+
+```{r echo=F cache=T}
+#parameters
+    step <- 25
+    reps <- 400
+    n <- 400
+    zoom <- 18.25
+    x <- -1.71122185076089
+    y <- 3.54780878690511e-05
+    w <- 4/2^zoom
+    h <- 4/2^zoom
+    
+    #starting point
+    C <- complex(imag=rep(seq(y - h/2, y + h/2, length.out=n), each=n),
+                 real=rep(seq(x - w/2, x + w/2, length.out=n), n))
+    Z <- rep(0, n*n)
+    diverge <- rep(0, n*n)
+    
+    j <- 0
+    upper <- 0
+    while(j < reps){
+        #perform some house keeping after every 'step' repetitions, for performace improvement
+        upper <- ifelse(upper+step < reps, upper+step, reps)
+        empty <- diverge==0
+        diverge.temp <- diverge[empty]
+        Z.temp <- Z[empty]
+        C.temp <- C[empty]
+        
+        for(i in (j+1):upper){
+            #do the fractal caluculation
+            Z.temp <- Z.temp^2+C.temp
+            diverge.temp[diverge.temp == 0 & Mod(Z.temp) >= 2] <- i
+        }
+        
+        diverge[empty] <- diverge.temp
+        Z[empty] <- Z.temp
+        j <- upper
+    }
+    
+    #perform the rendering
+    diverge <- diverge+1
+    maxD <- max(diverge)
+    diverge.m <- matrix(diverge, n, n)
+    par(mar=c(0, 0, 0, 0))
+    jet.colors = colorRampPalette(c("#00007F", "blue", "#007FFF", "cyan", "#7FFF7F", 
+                                    "yellow", "#FF7F00", "red", "#7F0000"))
+    image(diverge.m, col=c("black", jet.colors(reps)), xlab="", ylab="")
+```
+
+---
+
+## The good things about math
+
+- As we see, not all math has to be boring or unattractive
+- Math can be
+    - Creative
+    - Beautiful
+    - Interactive
+    - Dare I say even interesting?
+- Is math hard? It can be at times, but maybe with the proper motivation others can be convinced that it's worth the effort.
+- Math can even be useful every day, if someone is equiped to see the role it plays in our lives every day. Math plays a role in the form of things we see every day.
+    - The arrangement of the seeds of a sunflower
+    - The shape of a snowflake
+    - Even the way a tree branches can be explained using math
+
