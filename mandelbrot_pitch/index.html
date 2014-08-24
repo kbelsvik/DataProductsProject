@@ -110,6 +110,59 @@
   <!-- Presenter Notes -->
 </slide>
 
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Enter the Shiny Mandelbrot App</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>So to help fulfill the need to excite people about math I present the Shiny Mandelbrot App
+
+<ul>
+<li><a href="http://kbelsvik.shinyapps.io/Data_Products_Project/">http://kbelsvik.shinyapps.io/Data_Products_Project/</a></li>
+</ul></li>
+<li>This is an interactive Shiny app that can be used to create beautify images from the Mandelbrot Set</li>
+<li>How the math behind this is relatively simple and can be used to create some stunning images</li>
+<li>The math works in this way
+
+<ul>
+<li>We have two complex numbers Z and C</li>
+<li>Z starts out equal to 0, and C begins with some value reresenting a cartesian point \((x, y) \rightarrow x + yi\)</li>
+<li>We then apply the formual \(f(Z_{n+1}) = Z_{n}^2 + C\) repeatedly, counting the number of repetitions, until Z escapes into infinity (in this case we define infinity as anything greater than 2).</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>How it all works</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">z &lt;- complex(re=0, im=0)
+c &lt;- complex(re=-0.87, im=0.25)
+escape &lt;- 0
+while(Mod(z) &lt; 2){
+    z &lt;- z^2 + c
+    escape = escape+1
+}
+escape
+</code></pre>
+
+<pre><code>## [1] 27
+</code></pre>
+
+<ul>
+<li>So now we have a number, which we map to a color, then color the the point that C represented that color, points that never escape are colored black.</li>
+<li>Do that for all points, and you have an image of the Mandelbrot set.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
     <slide class="backdrop"></slide>
   </slides>
   <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
@@ -130,6 +183,18 @@
       <a href="#" target="_self" rel='tooltip' 
         data-slide=3 title='The good things about math'>
          3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Enter the Shiny Mandelbrot App'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='How it all works'>
+         5
       </a>
     </li>
   </ul>

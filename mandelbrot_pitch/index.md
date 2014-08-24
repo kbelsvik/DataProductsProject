@@ -48,3 +48,35 @@ What if I told you that boring old equasion is used to draw something like this?
     - The shape of a snowflake
     - Even the way a tree branches can be explained using math
 
+---
+
+## Enter the Shiny Mandelbrot App
+
+- So to help fulfill the need to excite people about math I present the Shiny Mandelbrot App
+    - http://kbelsvik.shinyapps.io/Data_Products_Project/
+- This is an interactive Shiny app that can be used to create beautify images from the Mandelbrot Set
+- How the math behind this is relatively simple and can be used to create some stunning images
+- The math works in this way
+    - We have two complex numbers Z and C
+    - Z starts out equal to 0, and C begins with some value reresenting a cartesian point $(x, y) \rightarrow x + yi$
+    - We then apply the formual $f(Z_{n+1}) = Z_{n}^2 + C$ repeatedly, counting the number of repetitions, until Z escapes into infinity (in this case we define infinity as anything greater than 2).
+
+---
+## How it all works
+
+```r
+z <- complex(re=0, im=0)
+c <- complex(re=-0.87, im=0.25)
+escape <- 0
+while(Mod(z) < 2){
+    z <- z^2 + c
+    escape = escape+1
+}
+escape
+```
+
+```
+## [1] 27
+```
+- So now we have a number, which we map to a color, then color the the point that C represented that color, points that never escape are colored black.
+- Do that for all points, and you have an image of the Mandelbrot set.
